@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Mail, Phone, Instagram, Facebook, Linkedin } from 'lucide-react';
+import { Mail, Phone, Instagram, Facebook, Linkedin, MapPin, Send, Sparkles, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -38,27 +38,42 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-dark-900">
-      <div className="container mx-auto px-4">
+    <section id="contact" className="py-20 bg-gradient-to-br from-gold-50 via-orange-50 to-yellow-50 relative overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-10 left-10 w-32 h-32 border-2 border-gold-400 rounded-full animate-float"></div>
+        <div className="absolute bottom-10 right-10 w-24 h-24 border-2 border-orange-400 rounded-full animate-bounce-slow"></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Section header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              📞 Parlons de votre <span className="text-gold-400">projet</span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <div className="flex items-center justify-center space-x-3 mb-6 animate-slide-down">
+              <Phone className="text-gold-600 animate-bounce" size={32} />
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-800">
+                Parlons de votre <span className="bg-gradient-to-r from-gold-600 to-orange-600 bg-clip-text text-transparent">projet</span>
+              </h2>
+              <Send className="text-gold-600 animate-bounce" size={32} style={{ animationDelay: '0.5s' }} />
+            </div>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto font-medium animate-slide-up">
               Prêt à donner une voix digitale à votre entreprise ? Contactez-nous pour un devis gratuit et personnalisé.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Contact form */}
-            <div className="bg-white rounded-lg p-8 shadow-xl">
-              <h3 className="text-2xl font-bold text-dark-900 mb-6">Demande de devis gratuit</h3>
+            <div className="bg-white rounded-2xl p-8 shadow-2xl border-2 border-gold-200 animate-slide-left">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="bg-gold-gradient w-12 h-12 rounded-full flex items-center justify-center animate-pulse-glow">
+                  <Mail className="text-black" size={24} />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800">Demande de devis gratuit</h3>
+              </div>
               
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <div className="animate-slide-right" style={{ animationDelay: '0.1s' }}>
+                  <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-2">
                     Nom complet *
                   </label>
                   <Input
@@ -69,12 +84,12 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Votre nom et prénom"
-                    className="w-full"
+                    className="w-full border-2 border-gold-200 focus:border-gold-500 rounded-lg transition-all duration-300"
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                <div className="animate-slide-right" style={{ animationDelay: '0.2s' }}>
+                  <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-2">
                     Email *
                   </label>
                   <Input
@@ -85,12 +100,12 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="votre.email@exemple.com"
-                    className="w-full"
+                    className="w-full border-2 border-gold-200 focus:border-gold-500 rounded-lg transition-all duration-300"
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                <div className="animate-slide-right" style={{ animationDelay: '0.3s' }}>
+                  <label htmlFor="message" className="block text-sm font-bold text-gray-700 mb-2">
                     Parlez-nous de votre projet *
                   </label>
                   <Textarea
@@ -101,87 +116,117 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="Décrivez votre entreprise, vos besoins, vos objectifs..."
                     rows={6}
-                    className="w-full"
+                    className="w-full border-2 border-gold-200 focus:border-gold-500 rounded-lg transition-all duration-300"
                   />
                 </div>
 
                 <Button 
                   type="submit" 
                   disabled={isLoading}
-                  className="w-full bg-gold-gradient text-black font-semibold hover:opacity-90 transition-opacity py-3"
+                  className="w-full bg-gold-gradient text-black font-bold hover:shadow-xl hover:scale-105 transition-all duration-300 py-4 text-lg border-2 border-gold-500 animate-pulse-glow"
                 >
-                  {isLoading ? 'Envoi en cours...' : 'Envoyer ma demande'}
+                  {isLoading ? (
+                    <div className="flex items-center space-x-2">
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black"></div>
+                      <span>Envoi en cours...</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center space-x-2">
+                      <Send className="animate-bounce" size={20} />
+                      <span>Envoyer ma demande</span>
+                    </div>
+                  )}
                 </Button>
               </form>
             </div>
 
             {/* Contact info */}
-            <div className="space-y-8">
+            <div className="space-y-8 animate-slide-right">
               {/* Direct contact */}
-              <div className="bg-gray-800 rounded-lg p-8">
-                <h3 className="text-2xl font-bold text-white mb-6">Nous contacter directement</h3>
+              <div className="bg-white rounded-2xl p-8 shadow-xl border-2 border-orange-200">
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="bg-gradient-to-r from-blue-500 to-cyan-500 w-12 h-12 rounded-full flex items-center justify-center animate-pulse-glow">
+                    <Phone className="text-white" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800">Nous contacter directement</h3>
+                </div>
                 
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-4">
-                    <div className="bg-gold-gradient w-12 h-12 rounded-full flex items-center justify-center">
-                      <Mail className="text-black" size={20} />
+                <div className="space-y-6">
+                  <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-200">
+                    <div className="bg-gradient-to-r from-blue-500 to-cyan-500 w-12 h-12 rounded-full flex items-center justify-center icon-hover">
+                      <Mail className="text-white" size={20} />
                     </div>
                     <div>
-                      <p className="text-white font-medium">Email</p>
-                      <a href="mailto:digi.resonance@gmail.com" className="text-gold-400 hover:underline">
+                      <p className="text-gray-800 font-bold">Email</p>
+                      <a href="mailto:digi.resonance@gmail.com" className="text-blue-600 hover:text-blue-800 font-semibold hover:underline transition-all">
                         digi.resonance@gmail.com
                       </a>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-4">
-                    <div className="bg-gold-gradient w-12 h-12 rounded-full flex items-center justify-center">
-                      <Phone className="text-black" size={20} />
+                  <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200">
+                    <div className="bg-gradient-to-r from-green-500 to-emerald-500 w-12 h-12 rounded-full flex items-center justify-center icon-hover">
+                      <Phone className="text-white" size={20} />
                     </div>
                     <div>
-                      <p className="text-white font-medium">WhatsApp</p>
-                      <a href="https://wa.me/24107000000" className="text-gold-400 hover:underline">
+                      <p className="text-gray-800 font-bold">WhatsApp</p>
+                      <a href="https://wa.me/24107000000" className="text-green-600 hover:text-green-800 font-semibold hover:underline transition-all">
                         +241 07 00 00 00
                       </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-200">
+                    <div className="bg-gradient-to-r from-purple-500 to-pink-500 w-12 h-12 rounded-full flex items-center justify-center icon-hover">
+                      <MapPin className="text-white" size={20} />
+                    </div>
+                    <div>
+                      <p className="text-gray-800 font-bold">Localisation</p>
+                      <p className="text-purple-600 font-semibold">Libreville, Gabon</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Social media */}
-              <div className="bg-gray-800 rounded-lg p-8">
-                <h3 className="text-2xl font-bold text-white mb-6">Suivez-nous</h3>
+              <div className="bg-white rounded-2xl p-8 shadow-xl border-2 border-pink-200">
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="bg-gradient-to-r from-pink-500 to-rose-500 w-12 h-12 rounded-full flex items-center justify-center animate-pulse-glow">
+                    <Sparkles className="text-white animate-rotate-360" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800">Suivez-nous</h3>
+                </div>
                 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-4 mb-6">
                   <a 
                     href="https://instagram.com/digi.resonance" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="bg-gold-gradient w-16 h-16 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity mx-auto"
+                    className="bg-gradient-to-r from-pink-500 to-rose-500 w-16 h-16 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 mx-auto shadow-lg icon-hover"
                   >
-                    <Instagram className="text-black" size={24} />
+                    <Instagram className="text-white" size={24} />
                   </a>
                   
                   <a 
                     href="https://facebook.com/digi.resonance" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="bg-gold-gradient w-16 h-16 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity mx-auto"
+                    className="bg-gradient-to-r from-blue-600 to-blue-500 w-16 h-16 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 mx-auto shadow-lg icon-hover"
                   >
-                    <Facebook className="text-black" size={24} />
+                    <Facebook className="text-white" size={24} />
                   </a>
                   
                   <a 
                     href="https://linkedin.com/company/digi-resonance" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="bg-gold-gradient w-16 h-16 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity mx-auto"
+                    className="bg-gradient-to-r from-blue-700 to-indigo-600 w-16 h-16 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 mx-auto shadow-lg icon-hover"
                   >
-                    <Linkedin className="text-black" size={24} />
+                    <Linkedin className="text-white" size={24} />
                   </a>
                 </div>
                 
-                <div className="text-center text-gray-400 text-sm mt-4 space-y-1">
+                <div className="text-center text-gray-600 text-sm space-y-1 font-medium">
                   <p>@digi.resonance</p>
                   <p>Digi.Résonance</p>
                   <p>Digi.Résonance</p>
@@ -189,15 +234,20 @@ const Contact = () => {
               </div>
 
               {/* Call to action */}
-              <div className="bg-gold-gradient rounded-lg p-8 text-black text-center">
-                <h4 className="text-xl font-bold mb-4">🚀 Prêt à démarrer ?</h4>
-                <p className="mb-4">
+              <div className="bg-gold-gradient rounded-2xl p-8 text-black text-center shadow-xl border-2 border-gold-500 animate-pulse-glow">
+                <div className="flex items-center justify-center space-x-2 mb-4">
+                  <Star className="animate-rotate-360" size={24} />
+                  <h4 className="text-xl font-bold">Prêt à démarrer ?</h4>
+                  <Star className="animate-rotate-360" size={24} style={{ animationDelay: '1s' }} />
+                </div>
+                <p className="mb-4 font-semibold">
                   Rejoignez les entrepreneurs gabonais qui nous font confiance pour leur présence digitale.
                 </p>
                 <Button 
                   variant="outline" 
-                  className="border-black text-black hover:bg-black hover:text-gold-400 font-semibold"
+                  className="border-2 border-black text-black hover:bg-black hover:text-gold-400 font-bold hover:scale-105 transition-all duration-300"
                 >
+                  <Phone className="mr-2 animate-bounce" size={20} />
                   Planifier un appel
                 </Button>
               </div>
