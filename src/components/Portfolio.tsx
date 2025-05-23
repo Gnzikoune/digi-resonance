@@ -3,9 +3,11 @@ import { useState } from 'react';
 import { ExternalLink, Eye, Calendar, Sparkles, Star, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import ProjectDetailsModal from './ProjectDetailsModal';
 
 const Portfolio = () => {
   const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const projects = [
     {
@@ -42,6 +44,15 @@ const Portfolio = () => {
       year: "2024"
     }
   ];
+
+  const handleViewDetails = (project: any) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const handleStartProject = () => {
+    window.open('https://wa.me/24177000000?text=Bonjour, je souhaite démarrer un nouveau projet avec Digi.Résonance', '_blank');
+  };
 
   return (
     <section id="realisations" className="py-20 bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -125,7 +136,7 @@ const Portfolio = () => {
 
                     <div className="pt-2">
                       <Button 
-                        onClick={() => setSelectedProject(project)}
+                        onClick={() => handleViewDetails(project)}
                         className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold"
                       >
                         <Eye className="mr-2 animate-bounce" size={18} />
@@ -151,13 +162,23 @@ const Portfolio = () => {
               Rejoignez nos clients satisfaits et donnez vie à votre projet digital. 
               Contactez-nous pour discuter de vos besoins spécifiques.
             </p>
-            <Button className="bg-blue-gradient text-white font-bold hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 border-blue-500">
+            <Button 
+              onClick={handleStartProject}
+              className="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 border-blue-500"
+            >
               <Sparkles className="mr-2 animate-rotate-360" size={20} />
               Démarrer mon projet
             </Button>
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      <ProjectDetailsModal 
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 };

@@ -24,6 +24,14 @@ const CustomSolutions = () => {
     }
   ];
 
+  const handleDiscussProject = () => {
+    window.open('https://wa.me/24177000000?text=Bonjour, je souhaite discuter d\'un projet sur mesure avec Digi.Résonance', '_blank');
+  };
+
+  const handleScheduleMeeting = () => {
+    window.open('https://wa.me/24177000000?text=Bonjour, je souhaite planifier un rendez-vous découverte avec Digi.Résonance', '_blank');
+  };
+
   return (
     <section id="solutions-sur-mesure" className="py-20 bg-gradient-to-br from-purple-50 via-white to-pink-50">
       <div className="container mx-auto px-4">
@@ -48,7 +56,7 @@ const CustomSolutions = () => {
             {customServices.map((service, index) => (
               <div 
                 key={index}
-                className="bg-white rounded-2xl shadow-xl p-8 card-hover border-2 border-purple-200 hover:border-purple-400 animate-slide-up"
+                className="bg-white rounded-2xl shadow-xl p-8 card-hover border-2 border-purple-200 hover:border-purple-400 animate-slide-up h-full flex flex-col"
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 <div className="text-center mb-6">
@@ -59,7 +67,7 @@ const CustomSolutions = () => {
                   <p className="text-gray-600 font-medium">{service.description}</p>
                 </div>
 
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-3 mb-8 flex-grow">
                   {service.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center space-x-3 animate-slide-right" style={{ animationDelay: `${featureIndex * 0.1}s` }}>
                       <CheckCircle className="text-green-500 flex-shrink-0 icon-hover" size={18} />
@@ -68,7 +76,10 @@ const CustomSolutions = () => {
                   ))}
                 </ul>
 
-                <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold">
+                <Button 
+                  onClick={handleDiscussProject}
+                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:shadow-xl hover:scale-105 transition-all duration-300 font-bold mt-auto"
+                >
                   <ArrowRight className="mr-2" size={18} />
                   Discuter du projet
                 </Button>
@@ -105,7 +116,10 @@ const CustomSolutions = () => {
             </div>
 
             <div className="text-center">
-              <Button className="bg-purple-gradient text-white font-bold hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 border-purple-500">
+              <Button 
+                onClick={handleScheduleMeeting}
+                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 border-purple-500"
+              >
                 <Users className="mr-2 animate-bounce" size={20} />
                 Planifier un rendez-vous découverte
               </Button>
