@@ -119,6 +119,14 @@
   animation: slideDown 0.8s ease-out;
 }
 
+.animate-slide-diagonal-left {
+  animation: slideDiagonalLeft 1s ease-out;
+}
+
+.animate-slide-diagonal-right {
+  animation: slideDiagonalRight 1s ease-out;
+}
+
 .animate-rotate-360 {
   animation: rotate360 2s linear infinite;
 }
@@ -129,6 +137,18 @@
 
 .animate-pulse-glow {
   animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out;
+}
+
+.animate-wiggle {
+  animation: wiggle 1s ease-in-out infinite;
 }
 
 @keyframes float {
@@ -156,6 +176,16 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
+@keyframes slideDiagonalLeft {
+  from { transform: translate(-100px, -50px); opacity: 0; }
+  to { transform: translate(0, 0); opacity: 1; }
+}
+
+@keyframes slideDiagonalRight {
+  from { transform: translate(100px, -50px); opacity: 0; }
+  to { transform: translate(0, 0); opacity: 1; }
+}
+
 @keyframes rotate360 {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -177,6 +207,64 @@
   }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes wiggle {
+  0%, 7%, 14%, 21%, 28%, 35%, 42%, 49%, 56%, 63%, 70%, 77%, 84%, 91%, 98%, 100% {
+    transform: translateX(0);
+  }
+  10.5%, 31.5%, 52.5%, 73.5%, 94.5% {
+    transform: translateX(-3px);
+  }
+  21%, 42%, 63%, 84% {
+    transform: translateX(3px);
+  }
+}
+
 .icon-hover:hover {
   animation: pulseGlow 0.6s ease-in-out;
+}
+
+/* Scroll-triggered animations */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+  }
+  
+  .animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .animate-slide-left-scroll {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s ease-out;
+  }
+  
+  .animate-slide-left-scroll.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .animate-slide-right-scroll {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s ease-out;
+  }
+  
+  .animate-slide-right-scroll.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

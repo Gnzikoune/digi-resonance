@@ -1,5 +1,5 @@
 
-import { Users, Heart, Target, Star, Sparkles } from 'lucide-react';
+import { Users, Heart, Target, Star, Sparkles, Camera } from 'lucide-react';
 
 const About = () => {
   return (
@@ -66,11 +66,17 @@ const About = () => {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               {/* Gildas */}
               <div className="text-center md:text-left animate-slide-left">
-                <div className="bg-gradient-to-r from-blue-500 to-cyan-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto md:mx-0 mb-6 shadow-lg animate-pulse-glow">
-                  <span className="text-white font-bold text-2xl">G</span>
+                <div className="relative mb-6">
+                  {/* Placeholder pour photo de Gildas */}
+                  <div className="w-32 h-32 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center mx-auto md:mx-0 shadow-2xl animate-pulse-glow border-4 border-white">
+                    <Camera className="text-white animate-bounce" size={40} />
+                  </div>
+                  <div className="absolute -top-2 -right-2 bg-blue-500 w-8 h-8 rounded-full flex items-center justify-center animate-bounce">
+                    <Star className="text-white" size={16} />
+                  </div>
                 </div>
                 <h4 className="text-2xl font-bold text-gray-800 mb-2">Gildas</h4>
-                <p className="text-blue-600 font-bold mb-4 text-lg">Développeur web (depuis 2021)</p>
+                <p className="text-blue-600 font-bold mb-4 text-lg">Développeur web</p>
                 <p className="text-gray-700 leading-relaxed font-medium">
                   Spécialiste des sites responsives, performants et personnalisés. Il conçoit l'outil digital adapté à votre activité, en s'assurant que votre site soit à la fois beau et fonctionnel.
                 </p>
@@ -78,11 +84,17 @@ const About = () => {
 
               {/* Gérole */}
               <div className="text-center md:text-left animate-slide-right">
-                <div className="bg-gradient-to-r from-pink-500 to-rose-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto md:mx-0 mb-6 shadow-lg animate-pulse-glow">
-                  <span className="text-white font-bold text-2xl">G</span>
+                <div className="relative mb-6">
+                  {/* Placeholder pour photo de Gérole */}
+                  <div className="w-32 h-32 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 flex items-center justify-center mx-auto md:mx-0 shadow-2xl animate-pulse-glow border-4 border-white">
+                    <Camera className="text-white animate-bounce" size={40} />
+                  </div>
+                  <div className="absolute -top-2 -right-2 bg-pink-500 w-8 h-8 rounded-full flex items-center justify-center animate-bounce">
+                    <Star className="text-white" size={16} />
+                  </div>
                 </div>
                 <h4 className="text-2xl font-bold text-gray-800 mb-2">Gérole</h4>
-                <p className="text-pink-600 font-bold mb-4 text-lg">Social Media Manager fraîchement diplômée</p>
+                <p className="text-pink-600 font-bold mb-4 text-lg">Social Media Manager</p>
                 <p className="text-gray-700 leading-relaxed font-medium">
                   Créatrice de contenu et stratège réseaux sociaux. Elle assure la visibilité et l'engagement de votre marque en ligne avec créativité et passion.
                 </p>

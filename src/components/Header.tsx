@@ -47,9 +47,11 @@ const Header = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold-gradient group-hover:w-full transition-all duration-300"></span>
               </a>
             ))}
-            <Button className="bg-gold-gradient text-black font-bold hover:shadow-xl hover:scale-105 transition-all duration-300 animate-bounce-slow border-2 border-gold-500">
-              Demande de devis
-            </Button>
+            <a href="#contact">
+              <Button className="bg-gold-gradient text-black font-bold hover:shadow-xl hover:scale-105 transition-all duration-300 animate-bounce-slow border-2 border-gold-500">
+                Demande de devis
+              </Button>
+            </a>
           </nav>
 
           {/* Mobile menu button */}
@@ -75,9 +77,11 @@ const Header = () => {
                   {item.name}
                 </a>
               ))}
-              <Button className="bg-gold-gradient text-black font-bold hover:shadow-xl transition-all duration-300 mx-4">
-                Demande de devis
-              </Button>
+              <a href="#contact" onClick={() => setIsMenuOpen(false)}>
+                <Button className="bg-gold-gradient text-black font-bold hover:shadow-xl transition-all duration-300 mx-4">
+                  Demande de devis
+                </Button>
+              </a>
             </div>
           </nav>
         )}

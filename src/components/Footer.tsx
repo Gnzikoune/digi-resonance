@@ -1,5 +1,5 @@
 
-import { Heart, Sparkles, MapPin } from 'lucide-react';
+import { Sparkles, MapPin } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -68,17 +68,10 @@ const Footer = () => {
           </div>
 
           {/* Bottom section */}
-          <div className="border-t-2 border-gold-300 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-600 text-sm mb-4 md:mb-0 font-medium">
+          <div className="border-t-2 border-gold-300 pt-8 text-center">
+            <p className="text-gray-600 text-sm font-medium">
               © 2024 Digi.Résonance. Tous droits réservés.
             </p>
-            
-            <div className="flex items-center space-x-2 text-gray-600 text-sm animate-bounce-slow">
-              <span className="font-medium">Fait avec</span>
-              <Heart className="text-red-500 animate-pulse" size={16} />
-              <span className="font-medium">au Gabon</span>
-              <div className="bg-green-500 w-4 h-4 rounded-full animate-pulse"></div>
-            </div>
           </div>
         </div>
       </div>
