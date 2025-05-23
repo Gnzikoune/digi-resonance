@@ -35,7 +35,11 @@ const Footer = () => {
                 <li className="hover:text-gold-600 transition-colors cursor-pointer font-medium">Sites vitrine</li>
                 <li className="hover:text-gold-600 transition-colors cursor-pointer font-medium">Community Management</li>
                 <li className="hover:text-gold-600 transition-colors cursor-pointer font-medium">Pack Lancement</li>
-                <li className="hover:text-gold-600 transition-colors cursor-pointer font-medium">Solutions sur mesure</li>
+                <li>
+                  <a href="#solutions-sur-mesure" className="hover:text-gold-600 transition-colors cursor-pointer font-medium">
+                    Solutions sur mesure
+                  </a>
+                </li>
               </ul>
             </div>
 

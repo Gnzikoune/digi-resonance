@@ -1,19 +1,12 @@
 
 import { useState } from 'react';
-import { X, Check, ArrowRight, Star, Sparkles } from 'lucide-react';
+import { X, CheckCircle, Calendar, Phone, Mail, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
 
 interface ServiceSelectionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  selectedService: {
-    title: string;
-    price: string;
-    features: string[];
-  } | null;
+  selectedService: any;
 }
 
 const ServiceSelectionModal = ({ isOpen, onClose, selectedService }: ServiceSelectionModalProps) => {
@@ -24,243 +17,259 @@ const ServiceSelectionModal = ({ isOpen, onClose, selectedService }: ServiceSele
     phone: '',
     company: '',
     message: '',
-    urgency: 'normal'
+    preferredDate: '',
+    preferredTime: ''
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
+  if (!isOpen || !selectedService) return null;
 
-    setTimeout(() => {
-      toast({
-        title: "Demande envoyée !",
-        description: "Nous vous contacterons dans les 24h pour discuter de votre projet.",
-      });
-      setStep(3);
-      setIsLoading(false);
-    }, 1500);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
 
-  if (!isOpen || !selectedService) return null;
+  const handleScheduleCall = () => {
+    // Créer un lien WhatsApp avec les informations
+    const message = `Bonjour ! Je souhaite planifier un appel pour discuter du service "${selectedService.title}".
+    
+Mes informations :
+- Nom : ${formData.name}
+- Email : ${formData.email}
+- Téléphone : ${formData.phone}
+- Entreprise : ${formData.company}
+- Date souhaitée : ${formData.preferredDate}
+- Heure souhaitée : ${formData.preferredTime}
+
+Message : ${formData.message}`;
+
+    const whatsappUrl = `https://wa.me/24107000000?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    onClose();
+  };
+
+  const handleQuoteRequest = () => {
+    // Créer un lien WhatsApp pour demande de devis
+    const message = `Bonjour ! Je suis intéressé(e) par le service "${selectedService.title}" au prix de ${selectedService.price}.
+    
+Mes informations :
+- Nom : ${formData.name}
+- Email : ${formData.email}
+- Téléphone : ${formData.phone}
+- Entreprise : ${formData.company}
+
+Message : ${formData.message}
+
+Pouvez-vous me faire parvenir un devis détaillé ?`;
+
+    const whatsappUrl = `https://wa.me/24107000000?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    onClose();
+  };
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-      <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-scale-in">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-scale-in">
         {/* Header */}
-        <div className="bg-gold-gradient p-6 rounded-t-2xl">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="bg-white/20 w-12 h-12 rounded-full flex items-center justify-center">
-                <Star className="text-black animate-rotate-360" size={24} />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-black">{selectedService.title}</h2>
-                <p className="text-black/70 font-semibold">{selectedService.price}</p>
-              </div>
-            </div>
-            <button 
-              onClick={onClose}
-              className="text-black hover:bg-white/20 p-2 rounded-full transition-all duration-300"
-            >
-              <X size={24} />
-            </button>
-          </div>
+        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+          <h2 className="text-2xl font-bold text-gray-800">
+            {step === 1 ? `Service sélectionné : ${selectedService.title}` : 'Vos informations'}
+          </h2>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            <X size={24} />
+          </button>
         </div>
 
-        {/* Step 1: Service Confirmation */}
         {step === 1 && (
-          <div className="p-6 animate-slide-right">
-            <div className="text-center mb-6">
-              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-glow">
-                <Check className="text-green-600 animate-bounce" size={32} />
+          <div className="p-6">
+            {/* Service recap */}
+            <div className="bg-gradient-to-r from-gold-50 to-orange-50 rounded-xl p-6 mb-6 border-2 border-gold-300">
+              <h3 className="text-xl font-bold text-gray-800 mb-2">{selectedService.title}</h3>
+              <p className="text-gray-600 mb-4 font-medium">{selectedService.description}</p>
+              <div className="text-2xl font-bold bg-gradient-to-r from-gold-600 to-orange-600 bg-clip-text text-transparent">
+                {selectedService.price}
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">Excellent choix !</h3>
-              <p className="text-gray-600">Voici ce qui est inclus dans votre offre :</p>
             </div>
 
-            <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 mb-6">
-              <ul className="space-y-3">
-                {selectedService.features.map((feature, index) => (
-                  <li key={index} className="flex items-start space-x-3 animate-slide-left" style={{ animationDelay: `${index * 0.1}s` }}>
-                    <Check className="text-green-600 flex-shrink-0 mt-0.5 animate-bounce" size={18} style={{ animationDelay: `${index * 0.2}s` }} />
+            {/* Features */}
+            <div className="mb-8">
+              <h4 className="font-bold text-gray-800 mb-4">Ce qui est inclus :</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {selectedService.features.map((feature: string, index: number) => (
+                  <div key={index} className="flex items-center space-x-3">
+                    <CheckCircle className="text-green-600 flex-shrink-0" size={18} />
                     <span className="text-gray-700 font-medium">{feature}</span>
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
 
-            <Button 
-              onClick={() => setStep(2)}
-              className="w-full bg-gold-gradient text-black font-bold hover:shadow-xl hover:scale-105 transition-all duration-300 py-4 text-lg border-2 border-gold-500"
-            >
-              <ArrowRight className="mr-2 animate-bounce" size={20} />
-              Continuer vers le formulaire
-            </Button>
+            {/* Actions */}
+            <div className="space-y-4">
+              <Button 
+                onClick={() => setStep(2)}
+                className="w-full bg-gold-gradient text-black font-bold hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 border-gold-500"
+              >
+                <Mail className="mr-2" size={20} />
+                Demander un devis détaillé
+              </Button>
+              <Button 
+                onClick={() => setStep(3)}
+                variant="outline"
+                className="w-full border-2 border-blue-500 text-blue-700 hover:bg-blue-500 hover:text-white font-bold hover:scale-105 transition-all duration-300"
+              >
+                <Calendar className="mr-2" size={20} />
+                Planifier un appel découverte
+              </Button>
+            </div>
           </div>
         )}
 
-        {/* Step 2: Contact Form */}
-        {step === 2 && (
-          <div className="p-6 animate-slide-left">
-            <div className="text-center mb-6">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse-glow">
-                <Sparkles className="text-blue-600 animate-rotate-360" size={32} />
-              </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">Parlez-nous de votre projet</h3>
-              <p className="text-gray-600">Plus nous en savons, mieux nous pourrons vous aider</p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
+        {(step === 2 || step === 3) && (
+          <div className="p-6">
+            <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">Nom complet *</label>
-                  <Input
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <User className="inline mr-1" size={16} />
+                    Nom complet *
+                  </label>
+                  <input
+                    type="text"
                     name="name"
-                    required
                     value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Votre nom"
-                    className="border-2 border-gold-200 focus:border-gold-500"
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
+                    required
                   />
                 </div>
-                <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">Email *</label>
-                  <Input
-                    name="email"
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <Mail className="inline mr-1" size={16} />
+                    Email *
+                  </label>
+                  <input
                     type="email"
-                    required
+                    name="email"
                     value={formData.email}
-                    onChange={handleChange}
-                    placeholder="votre@email.com"
-                    className="border-2 border-gold-200 focus:border-gold-500"
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
+                    required
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="animate-slide-up" style={{ animationDelay: '0.3s' }}>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">Téléphone *</label>
-                  <Input
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <Phone className="inline mr-1" size={16} />
+                    Téléphone *
+                  </label>
+                  <input
+                    type="tel"
                     name="phone"
-                    required
                     value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="+241 XX XX XX XX"
-                    className="border-2 border-gold-200 focus:border-gold-500"
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
+                    required
                   />
                 </div>
-                <div className="animate-slide-up" style={{ animationDelay: '0.4s' }}>
-                  <label className="block text-sm font-bold text-gray-700 mb-1">Entreprise</label>
-                  <Input
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Entreprise
+                  </label>
+                  <input
+                    type="text"
                     name="company"
                     value={formData.company}
-                    onChange={handleChange}
-                    placeholder="Nom de votre entreprise"
-                    className="border-2 border-gold-200 focus:border-gold-500"
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
                   />
                 </div>
               </div>
 
-              <div className="animate-slide-up" style={{ animationDelay: '0.5s' }}>
-                <label className="block text-sm font-bold text-gray-700 mb-1">Urgence du projet</label>
-                <select
-                  name="urgency"
-                  value={formData.urgency}
-                  onChange={handleChange}
-                  className="w-full border-2 border-gold-200 focus:border-gold-500 rounded-lg p-3 bg-white"
-                >
-                  <option value="normal">Pas d'urgence (2-3 semaines)</option>
-                  <option value="urgent">Urgent (1 semaine)</option>
-                  <option value="very-urgent">Très urgent (quelques jours)</option>
-                </select>
-              </div>
+              {step === 3 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <Calendar className="inline mr-1" size={16} />
+                      Date souhaitée
+                    </label>
+                    <input
+                      type="date"
+                      name="preferredDate"
+                      value={formData.preferredDate}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Heure souhaitée
+                    </label>
+                    <select
+                      name="preferredTime"
+                      value={formData.preferredTime}
+                      onChange={(e) => setFormData({...formData, preferredTime: e.target.value})}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
+                    >
+                      <option value="">Sélectionner une heure</option>
+                      <option value="09:00">09:00</option>
+                      <option value="10:00">10:00</option>
+                      <option value="11:00">11:00</option>
+                      <option value="14:00">14:00</option>
+                      <option value="15:00">15:00</option>
+                      <option value="16:00">16:00</option>
+                    </select>
+                  </div>
+                </div>
+              )}
 
-              <div className="animate-slide-up" style={{ animationDelay: '0.6s' }}>
-                <label className="block text-sm font-bold text-gray-700 mb-1">Décrivez votre projet *</label>
-                <Textarea
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Message
+                </label>
+                <textarea
                   name="message"
-                  required
                   value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Parlez-nous de votre activité, vos objectifs, vos attentes..."
+                  onChange={handleInputChange}
                   rows={4}
-                  className="border-2 border-gold-200 focus:border-gold-500"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent"
+                  placeholder="Décrivez votre projet en quelques mots..."
                 />
               </div>
 
-              <div className="flex gap-3 pt-4">
-                <Button 
-                  type="button"
-                  variant="outline"
+              <div className="flex space-x-4 pt-4">
+                <Button
                   onClick={() => setStep(1)}
-                  className="flex-1 border-2 border-gray-300 hover:bg-gray-100"
+                  variant="outline"
+                  className="flex-1"
                 >
                   Retour
                 </Button>
-                <Button 
-                  type="submit"
-                  disabled={isLoading}
-                  className="flex-2 bg-gold-gradient text-black font-bold hover:shadow-xl hover:scale-105 transition-all duration-300"
+                <Button
+                  onClick={step === 2 ? handleQuoteRequest : handleScheduleCall}
+                  className="flex-1 bg-gold-gradient text-black font-bold hover:shadow-xl hover:scale-105 transition-all duration-300"
+                  disabled={!formData.name || !formData.email || !formData.phone}
                 >
-                  {isLoading ? (
+                  {step === 2 ? (
                     <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black mr-2"></div>
-                      Envoi...
+                      <Mail className="mr-2" size={20} />
+                      Envoyer la demande
                     </>
                   ) : (
                     <>
-                      <ArrowRight className="mr-2 animate-bounce" size={20} />
-                      Envoyer ma demande
+                      <Calendar className="mr-2" size={20} />
+                      Planifier l'appel
                     </>
                   )}
                 </Button>
               </div>
-            </form>
-          </div>
-        )}
-
-        {/* Step 3: Confirmation */}
-        {step === 3 && (
-          <div className="p-6 text-center animate-scale-in">
-            <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse-glow">
-              <Check className="text-green-600 animate-bounce" size={40} />
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Demande envoyée avec succès !</h3>
-            <p className="text-gray-600 mb-6 text-lg">
-              Merci pour votre confiance. Nous analyserons votre demande et vous recontacterons dans les 24h pour discuter de votre projet.
-            </p>
-            <div className="bg-gradient-to-r from-gold-100 to-orange-100 rounded-xl p-6 mb-6">
-              <h4 className="font-bold text-gray-800 mb-2">Prochaines étapes :</h4>
-              <ul className="text-gray-700 space-y-2 text-left">
-                <li className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-gold-500 rounded-full"></div>
-                  <span>Analyse de votre demande (24h)</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-gold-500 rounded-full"></div>
-                  <span>Appel de découverte (30 min)</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-gold-500 rounded-full"></div>
-                  <span>Proposition personnalisée</span>
-                </li>
-              </ul>
-            </div>
-            <Button 
-              onClick={onClose}
-              className="w-full bg-gold-gradient text-black font-bold hover:shadow-xl hover:scale-105 transition-all duration-300"
-            >
-              Parfait, merci !
-            </Button>
           </div>
         )}
       </div>
