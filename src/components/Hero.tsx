@@ -51,9 +51,9 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 text-center relative z-10 mt-24 md:mt-32">
+      <div className="container mx-auto px-4 text-center relative z-10 mt-32 md:mt-40">
         <div className="max-w-4xl mx-auto">
-          {/* Logo large */}
+          {/* Logo large - moved below banners */}
           <div className="mb-8 md:mb-12 animate-slide-down">
             <div className="relative inline-block">
               <img 
