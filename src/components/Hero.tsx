@@ -1,5 +1,5 @@
 
-import { ArrowDown, Sparkles, Zap, ChevronRight, Star, Gift, Search } from 'lucide-react';
+import { ArrowDown, Sparkles, Zap, ChevronRight, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Hero = () => {
@@ -15,31 +15,60 @@ const Hero = () => {
         <div className="absolute bottom-1/3 left-1/4 w-28 h-28 border-2 border-orange-500 rounded-full animate-float hidden md:block" style={{ animationDelay: '2s' }}></div>
       </div>
 
+      {/* Bannière publicitaire - Audit Gratuit */}
+      <div className="absolute top-24 md:top-32 left-4 right-4 md:left-8 md:right-auto md:w-80 z-20">
+        <div className="bg-gradient-to-r from-emerald-500 to-green-600 text-white rounded-2xl p-4 md:p-6 shadow-2xl border-4 border-white animate-pulse-glow transform hover:scale-105 transition-all duration-300">
+          <div className="flex items-center justify-between mb-3">
+            <span className="bg-white text-green-600 font-black text-xs md:text-sm px-3 py-1 rounded-full animate-bounce">
+              🎁 GRATUIT
+            </span>
+            <span className="text-white font-bold text-xs md:text-sm animate-pulse">
+              Offre limitée !
+            </span>
+          </div>
+          <h3 className="text-lg md:text-xl font-black mb-2 animate-slide-down">
+            AUDIT DIGITAL GRATUIT
+          </h3>
+          <p className="text-sm md:text-base font-medium mb-4 opacity-90">
+            Analyse complète de votre site ou réseaux sociaux
+          </p>
+          <button 
+            onClick={() => window.open('https://wa.me/24107000000?text=Bonjour, je souhaite bénéficier de l\'audit digital gratuit', '_blank')}
+            className="bg-white text-green-600 font-black text-sm md:text-base px-4 py-2 rounded-full w-full hover:bg-green-50 transition-all duration-300 hover:scale-105 shadow-lg"
+          >
+            RÉSERVER MON AUDIT 🚀
+          </button>
+        </div>
+      </div>
+
+      {/* Bannière publicitaire - Early Clients */}
+      <div className="absolute top-80 md:top-32 right-4 left-4 md:left-auto md:right-8 md:w-80 z-20">
+        <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl p-4 md:p-6 shadow-2xl border-4 border-white animate-pulse-glow transform hover:scale-105 transition-all duration-300">
+          <div className="flex items-center justify-between mb-3">
+            <span className="bg-white text-purple-600 font-black text-xs md:text-sm px-3 py-1 rounded-full animate-bounce">
+              ⭐ EXCLUSIF
+            </span>
+            <span className="text-white font-bold text-xs md:text-sm animate-pulse">
+              30% BONUS !
+            </span>
+          </div>
+          <h3 className="text-lg md:text-xl font-black mb-2 animate-slide-down">
+            EARLY CLIENTS
+          </h3>
+          <p className="text-sm md:text-base font-medium mb-4 opacity-90">
+            10 premiers clients = 30% de bonus !
+          </p>
+          <button 
+            onClick={() => window.open('https://wa.me/24107000000?text=Bonjour, je souhaite profiter de l\'offre Early Clients', '_blank')}
+            className="bg-white text-purple-600 font-black text-sm md:text-base px-4 py-2 rounded-full w-full hover:bg-purple-50 transition-all duration-300 hover:scale-105 shadow-lg"
+          >
+            PROFITER DE L'OFFRE 🎯
+          </button>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
-          {/* Offres spéciales visibles - en haut pour mobile */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 md:mb-16">
-            <div className="bg-gradient-to-r from-green-100 to-emerald-100 border-2 border-green-400 rounded-xl p-4 md:p-6 animate-pulse-glow">
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <Search className="text-green-600" size={20} />
-                <h3 className="text-lg md:text-xl font-bold text-green-700">Audit Gratuit</h3>
-              </div>
-              <p className="text-sm md:text-base text-green-600 font-medium">
-                Analyse complète de votre présence digitale - Gratuit !
-              </p>
-            </div>
-            
-            <div className="bg-gradient-to-r from-purple-100 to-pink-100 border-2 border-purple-400 rounded-xl p-4 md:p-6 animate-pulse-glow">
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <Gift className="text-purple-600" size={20} />
-                <h3 className="text-lg md:text-xl font-bold text-purple-700">Early Clients</h3>
-              </div>
-              <p className="text-sm md:text-base text-purple-600 font-medium">
-                10 premiers clients = 30% de bonus !
-              </p>
-            </div>
-          </div>
-
           {/* Logo large */}
           <div className="mb-8 md:mb-12 animate-slide-down">
             <div className="relative inline-block">

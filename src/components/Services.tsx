@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Globe, Users, Palette, Zap, CheckCircle, ArrowRight, Sparkles, Star, Gift, Search } from 'lucide-react';
+import { Globe, Users, Palette, Zap, CheckCircle, ArrowRight, Sparkles, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ServiceSelectionModal from './ServiceSelectionModal';
 
@@ -60,45 +60,6 @@ const Services = () => {
             <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto font-medium animate-slide-up px-4 md:px-0">
               Des solutions digitales adaptées aux entrepreneurs gabonais pour développer votre présence en ligne.
             </p>
-          </div>
-
-          {/* Offres spéciales mise en avant */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-12 md:mb-16">
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-400 rounded-2xl p-6 md:p-8 text-center animate-slide-left shadow-lg">
-              <div className="flex items-center justify-center space-x-3 mb-4">
-                <Search className="text-green-600 animate-bounce" size={32} />
-                <h3 className="text-xl md:text-2xl font-bold text-green-700">Audit Digital Gratuit</h3>
-              </div>
-              <p className="text-green-600 font-medium mb-4 text-sm md:text-base">
-                Analyse complète de votre site web ou de vos réseaux sociaux. 
-                Rapport détaillé avec recommandations personnalisées.
-              </p>
-              <Button 
-                onClick={() => window.open('https://wa.me/24107000000?text=Bonjour, je souhaite bénéficier de l\'audit digital gratuit', '_blank')}
-                className="bg-green-600 text-white hover:bg-green-700 font-bold w-full md:w-auto"
-              >
-                <Search className="mr-2" size={18} />
-                Demander mon audit gratuit
-              </Button>
-            </div>
-
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-400 rounded-2xl p-6 md:p-8 text-center animate-slide-right shadow-lg">
-              <div className="flex items-center justify-center space-x-3 mb-4">
-                <Gift className="text-purple-600 animate-bounce" size={32} />
-                <h3 className="text-xl md:text-2xl font-bold text-purple-700">Offre Early Clients</h3>
-              </div>
-              <p className="text-purple-600 font-medium mb-4 text-sm md:text-base">
-                Soyez parmi nos 10 premiers clients et bénéficiez de 30% de bonus 
-                sur votre premier projet !
-              </p>
-              <Button 
-                onClick={() => window.open('https://wa.me/24107000000?text=Bonjour, je souhaite profiter de l\'offre Early Clients', '_blank')}
-                className="bg-purple-600 text-white hover:bg-purple-700 font-bold w-full md:w-auto"
-              >
-                <Gift className="mr-2" size={18} />
-                Profiter de l'offre
-              </Button>
-            </div>
           </div>
 
           {/* Services grid */}
